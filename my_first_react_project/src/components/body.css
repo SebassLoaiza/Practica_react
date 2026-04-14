@@ -1,0 +1,180 @@
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search input {
+    width: 100%;
+  }
+}
+
+.main {
+  padding: 40px 5%;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.hero {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)),
+    url("https://www.industriaavicola.net/wp-content/uploads/2020/07/Tienda-de-productos-de-Pollo-Olympico-en-Colombia-876x576.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  height: 90vh;
+}
+
+.hero h1 {
+  color: #4288d7;
+  font-size: 2.5rem;
+}
+
+.hero p {
+  margin: 15px 0;
+  color: #ececec;
+}
+
+.category {
+  margin-bottom: 50px;
+}
+
+.category h2 {
+  color: #4288d7;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #4288d7;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin: 10px 0 5px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #666;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.price {
+  font-weight: bold;
+  color: #4288d7;
+}
+
+.card button {
+  background: #4288d7;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.empty {
+  color: #888;
+  font-style: italic;
+}
+
+.categories-section {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.categories-section h2 {
+  color: #4288d7;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  background: white;
+  border: 2px solid #4288d7;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.category-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.category-card h3 {
+  margin-bottom: 10px;
+}
+
+.category-card button {
+  margin-top: 10px;
+  background: #4288d7;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  background: #f5f9ff;
+}
+
