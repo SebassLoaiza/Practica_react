@@ -1,14 +1,14 @@
 import React from "react";
 import './footer.css';
 
-function Footer() {
+function Footer({ company, socialNetworks, schedules }) {
   return (
     <footer className="footer">
 
       <div className="footer-container">
 
         <div className="footer-section">
-          <h3>Avícola Mar y Tierra</h3>
+          <h3>{company}</h3>
           <p>
             Somos una empresa comprometida con la calidad y frescura de nuestros
             productos. Ofrecemos pollo, huevos, pescado y más, llevando lo mejor
@@ -29,18 +29,12 @@ function Footer() {
         <div className="footer-section">
           <h4>Síguenos</h4>
           <div className="socials">
-
-            <a href="#">
-              <i className="fab fa-instagram"></i> Instagram
-            </a>
-
-            <a href="#">
-              <i className="fab fa-facebook"></i> Facebook
-            </a>
-
-            <a href="#">
-              <i className="fab fa-whatsapp"></i> WhatsApp
-            </a>
+            {socialNetworks.map((network, index) => (
+              <a href={network.link} key={index} target="_blank">
+                <i className={network.icon}></i>
+                  <span>{network.name}</span>
+              </a>)
+            )}
 
           </div>
         </div>
@@ -48,7 +42,7 @@ function Footer() {
         <div className="footer-section">
           <h4>Horario</h4>
           <p>Lunes a Sábado</p>
-          <p>8:00 AM - 6:00 PM</p>
+          <p>{schedules}</p>
         </div>
 
       </div>

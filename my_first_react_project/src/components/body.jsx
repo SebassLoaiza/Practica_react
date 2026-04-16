@@ -1,5 +1,6 @@
 import React from "react";
 import './body.css';
+import Card from './card';
 
 function Body() {
 
@@ -28,41 +29,58 @@ function Body() {
                 <div className="categories-grid">
 
                     <div className="category-card">
-                        <h3>Pollo y huevos</h3>
-                        <img src="https://pazodevilane.com/wp-content/uploads/2022/01/granja-avicola-de-jaula_3.jpg" alt="Pollo" />
-                        <button onClick={scrollToProducts}>Ver productos</button>
+                        <Card
+                        title={'Pollo y huevos'}
+                        url={"https://pazodevilane.com/wp-content/uploads/2022/01/granja-avicola-de-jaula_3.jpg"}
+                        nameButton={'Ver mas'}
+                        click={scrollToProducts}
+                        />
                     </div>
 
                     <div className="category-card">
-                        <h3>Pescado</h3>
-                        <img src="https://alaskaseafood.es/wp-content/uploads/2020/04/producto-pescado-blanco-.jpg" alt="Pescado" />
-                        <button onClick={scrollToProducts}>Ver productos</button>
+                        <Card
+                        title={'Pescado'}
+                        url={"https://alaskaseafood.es/wp-content/uploads/2020/04/producto-pescado-blanco-.jpg"}
+                        nameButton={'Ver mas'}
+                        click={scrollToProducts}
+                        />
                     </div>
 
                     <div className="category-card">
-                        <h3>Lácteos</h3>
-                        <img src="https://www.alqueria.com.co/_next/image?url=https%3A%2F%2Falqueriauploads.s3.us-east-1.amazonaws.com%2Fprod%2FBlog_Alqueria_Productos_lacteos_892191dfc3.jpg&w=3840&q=75" alt="Lácteos" />
-                        <button onClick={scrollToProducts}>Ver productos</button>
+                        <Card
+                        title={'Lacteos'}
+                        url={"https://www.alqueria.com.co/_next/image?url=https%3A%2F%2Falqueriauploads.s3.us-east-1.amazonaws.com%2Fprod%2FBlog_Alqueria_Productos_lacteos_892191dfc3.jpg&w=3840&q=75"}
+                        nameButton={'Ver mas'}
+                        click={scrollToProducts}
+                        />
                     </div>
 
                     <div className="category-card">
-                        <h3>Aceites</h3>
-                        <img src="https://hips.hearstapps.com/hmg-prod/images/aceites-diferentes-elle-gourmet-65226dba46ae1.jpg" alt="Aceites" />
-                        <button onClick={scrollToProducts}>Ver productos</button>
+                        <Card
+                        title={'Aceites'}
+                        url={"https://hips.hearstapps.com/hmg-prod/images/aceites-diferentes-elle-gourmet-65226dba46ae1.jpg"}
+                        nameButton={'Ver mas'}
+                        click={scrollToProducts}
+                        />
+                   </div>
+
+                    <div className="category-card">
+                        <Card
+                        title={'Embutidos'}
+                        url={"https://thefoodtech.com/wp-content/uploads/2020/05/jamon-y-salchicha.jpg"}
+                        nameButton={'Ver mas'}
+                        click={scrollToProducts}
+                        />
                     </div>
 
                     <div className="category-card">
-                        <h3>Embutidos</h3>
-                        <img src="https://thefoodtech.com/wp-content/uploads/2020/05/jamon-y-salchicha.jpg" alt="Embutidos" />
-                        <button onClick={scrollToProducts}>Ver productos</button>
+                        <Card
+                        title={'Harinas'}
+                        url={"https://chapela.es/wp-content/uploads/2025/03/tipos-de-harinas-e1747301637580.jpg"}
+                        nameButton={'Ver mas'}
+                        click={scrollToProducts}
+                        />
                     </div>
-
-                    <div className="category-card">
-                        <h3>Harinas</h3>
-                        <img src="https://chapela.es/wp-content/uploads/2025/03/tipos-de-harinas-e1747301637580.jpg" alt="Harinas" />
-                        <button onClick={scrollToProducts}>Ver productos</button>
-                    </div>
-
                 </div>
             </section>
 
