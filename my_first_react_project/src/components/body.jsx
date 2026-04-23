@@ -1,8 +1,19 @@
 import React from "react";
 import './body.css';
 import Card from './card';
+import { useState } from "react";
 
 function Body() {
+
+    const [contador, setContador] = useState(0)
+
+    const [shop, setShop] = useState(false);
+
+    const [input, setInput] = useState('');
+
+    const [task, setTask] = useState([]);
+
+    const [dele, setDele] = useState(false);
 
     const scrollToProducts = () => {
         window.scrollTo({
@@ -10,6 +21,34 @@ function Body() {
             behavior: "smooth",
         });
     };
+
+    function comprobar() {
+        setShop(true);
+    };
+
+    function add() {
+        if (input.trim() === "") return;
+
+        setTask([...task, input]);
+        setInput(""); // limpiar input
+    }
+
+    function confirmar() {
+        alert("Compra realizada");
+        setShop(false);
+    }
+
+    function cancelar() {
+        setShop(false);
+    };
+
+    function agregar() {
+        setContador(contador + 1)
+    }
+
+    function quitar() {
+        setContador(contador - 1)
+    }
 
     return (
         <main className="main">
@@ -23,6 +62,50 @@ function Body() {
                 </p>
             </section>
 
+            <div className="container-contador">
+                <h2 className="title">Contador</h2>
+                <p className="number">{contador}</p>
+
+                <div className="buttons">
+                    <button className="button" onClick={quitar}>
+                        -
+                    </button>
+                    <button className="button" onClick={agregar}>
+                        +
+                    </button>
+                </div>
+            </div>
+
+            <div className="app">
+                <div className="todo-container">
+                    <h1>To-Do List</h1>
+
+                    <div className="input-group">
+                        <input
+                            value={input}
+                            type="text"
+                            placeholder="Agregar nueva tarea..."
+                            onChange={(e) => setInput(e.target.value)}
+                        />
+                        <button onClick={add}>Agregar</button>
+                    </div>
+
+                    <ul className="todo-list">
+                        {task.map((element, i) => (
+                            <li className="todo-item" key={i}>
+                                <span>{element}</span>
+                                <div className="actions">
+                                    <button className="complete" onClick={() => {
+                                        setDele(true)
+                                    }}>✔</button>
+                                    <button className="delete">✖</button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
             <section className="categories-section">
                 <h2>Categorías</h2>
 
@@ -30,55 +113,55 @@ function Body() {
 
                     <div className="category-card">
                         <Card
-                        title={'Pollo y huevos'}
-                        url={"https://pazodevilane.com/wp-content/uploads/2022/01/granja-avicola-de-jaula_3.jpg"}
-                        nameButton={'Ver mas'}
-                        click={scrollToProducts}
+                            title={'Pollo y huevos'}
+                            url={"https://pazodevilane.com/wp-content/uploads/2022/01/granja-avicola-de-jaula_3.jpg"}
+                            nameButton={'Ver mas'}
+                            click={scrollToProducts}
                         />
                     </div>
 
                     <div className="category-card">
                         <Card
-                        title={'Pescado'}
-                        url={"https://alaskaseafood.es/wp-content/uploads/2020/04/producto-pescado-blanco-.jpg"}
-                        nameButton={'Ver mas'}
-                        click={scrollToProducts}
+                            title={'Pescado'}
+                            url={"https://alaskaseafood.es/wp-content/uploads/2020/04/producto-pescado-blanco-.jpg"}
+                            nameButton={'Ver mas'}
+                            click={scrollToProducts}
                         />
                     </div>
 
                     <div className="category-card">
                         <Card
-                        title={'Lacteos'}
-                        url={"https://www.alqueria.com.co/_next/image?url=https%3A%2F%2Falqueriauploads.s3.us-east-1.amazonaws.com%2Fprod%2FBlog_Alqueria_Productos_lacteos_892191dfc3.jpg&w=3840&q=75"}
-                        nameButton={'Ver mas'}
-                        click={scrollToProducts}
+                            title={'Lacteos'}
+                            url={"https://www.alqueria.com.co/_next/image?url=https%3A%2F%2Falqueriauploads.s3.us-east-1.amazonaws.com%2Fprod%2FBlog_Alqueria_Productos_lacteos_892191dfc3.jpg&w=3840&q=75"}
+                            nameButton={'Ver mas'}
+                            click={scrollToProducts}
                         />
                     </div>
 
                     <div className="category-card">
                         <Card
-                        title={'Aceites'}
-                        url={"https://hips.hearstapps.com/hmg-prod/images/aceites-diferentes-elle-gourmet-65226dba46ae1.jpg"}
-                        nameButton={'Ver mas'}
-                        click={scrollToProducts}
-                        />
-                   </div>
-
-                    <div className="category-card">
-                        <Card
-                        title={'Embutidos'}
-                        url={"https://thefoodtech.com/wp-content/uploads/2020/05/jamon-y-salchicha.jpg"}
-                        nameButton={'Ver mas'}
-                        click={scrollToProducts}
+                            title={'Aceites'}
+                            url={"https://hips.hearstapps.com/hmg-prod/images/aceites-diferentes-elle-gourmet-65226dba46ae1.jpg"}
+                            nameButton={'Ver mas'}
+                            click={scrollToProducts}
                         />
                     </div>
 
                     <div className="category-card">
                         <Card
-                        title={'Harinas'}
-                        url={"https://chapela.es/wp-content/uploads/2025/03/tipos-de-harinas-e1747301637580.jpg"}
-                        nameButton={'Ver mas'}
-                        click={scrollToProducts}
+                            title={'Embutidos'}
+                            url={"https://thefoodtech.com/wp-content/uploads/2020/05/jamon-y-salchicha.jpg"}
+                            nameButton={'Ver mas'}
+                            click={scrollToProducts}
+                        />
+                    </div>
+
+                    <div className="category-card">
+                        <Card
+                            title={'Harinas'}
+                            url={"https://chapela.es/wp-content/uploads/2025/03/tipos-de-harinas-e1747301637580.jpg"}
+                            nameButton={'Ver mas'}
+                            click={scrollToProducts}
                         />
                     </div>
                 </div>
@@ -93,12 +176,26 @@ function Body() {
                         <img src="https://via.placeholder.com/200" alt="" />
                         <h3>Pechuga de pollo</h3>
                         <p>Fresca, lista para cocinar</p>
+
                         <div className="card-footer">
                             <span className="price">$12.000</span>
-                            <button>Comprar</button>
+                            <button onClick={comprobar}>Comprar</button>
                         </div>
-                    </div>
 
+                        {/* MODAL */}
+                        {shop && (
+                            <div className="modal-overlay">
+                                <div className="modal">
+                                    <p>¿Seguro que desea comprar Pechuga de pollo?</p>
+
+                                    <div className="modal-buttons">
+                                        <button onClick={confirmar}>Sí</button>
+                                        <button onClick={cancelar}>Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                     <div className="card">
                         <span className="badge">Orgánico</span>
                         <img src="https://via.placeholder.com/200" alt="" />
