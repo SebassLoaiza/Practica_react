@@ -26,12 +26,19 @@ function Body() {
         setShop(true);
     };
 
-    function add() {
+    const add = () => {
+
         if (input.trim() === "") return;
 
-        setTask([...task, input]);
-        setInput(""); // limpiar input
-    }
+        const newTask = {
+            text: input,
+            completed: false
+        };
+
+        setTask([...task, newTask]);
+
+        setInput("");
+    };
 
     function confirmar() {
         alert("Compra realizada");
@@ -50,6 +57,23 @@ function Body() {
         setContador(contador - 1)
     }
 
+    const tareaCompletada = (index) => {
+
+        const updatedTasks = [...task];
+
+        updatedTasks[index].completed =
+            !updatedTasks[index].completed;
+
+        setTask(updatedTasks);
+    };
+
+    const eliminarTarea = (index) => {
+
+        const updatedTasks = task.filter((_, i) => i !== index);
+
+        setTask(updatedTasks);
+    };
+
     return (
         <main className="main">
 
@@ -62,47 +86,63 @@ function Body() {
                 </p>
             </section>
 
-            <div className="container-contador">
-                <h2 className="title">Contador</h2>
-                <p className="number">{contador}</p>
-
-                <div className="buttons">
-                    <button className="button" onClick={quitar}>
-                        -
-                    </button>
-                    <button className="button" onClick={agregar}>
-                        +
-                    </button>
-                </div>
-            </div>
-
             <div className="app">
                 <div className="todo-container">
-                    <h1>To-Do List</h1>
+
+                    <h1>Lista de compras</h1>
 
                     <div className="input-group">
+
                         <input
                             value={input}
                             type="text"
                             placeholder="Agregar nueva tarea..."
                             onChange={(e) => setInput(e.target.value)}
                         />
-                        <button onClick={add}>Agregar</button>
+
+                        <button onClick={add}>
+                            Agregar
+                        </button>
+
                     </div>
 
                     <ul className="todo-list">
+
                         {task.map((element, i) => (
-                            <li className="todo-item" key={i}>
-                                <span>{element}</span>
+
+                            <li
+                                className={`todo-item ${element.completed ? "done" : ""}`}
+                                key={i}
+                            >
+
+                                <span>
+                                    {element.text}
+                                </span>
+
                                 <div className="actions">
-                                    <button className="complete" onClick={() => {
-                                        setDele(true)
-                                    }}>✔</button>
-                                    <button className="delete">✖</button>
+
+                                    <button
+                                        className="complete"
+                                        onClick={() => tareaCompletada(i)}
+                                    >
+                                        ✔
+                                    </button>
+
+                                    <button
+                                        className="delete"
+                                        onClick={() => eliminarTarea(i)}
+                                    >
+                                        ✖
+                                    </button>
+
                                 </div>
+
                             </li>
+
                         ))}
+
                     </ul>
+
                 </div>
             </div>
 
@@ -181,8 +221,17 @@ function Body() {
                             <span className="price">$12.000</span>
                             <button onClick={comprobar}>Comprar</button>
                         </div>
+                        <h2 className="title">Contador</h2>
+                        <p className="number">{contador}</p>
+                        <div className="buttons">
+                            <button className="button" onClick={quitar}>
+                                -
+                            </button>
+                            <button className="button" onClick={agregar}>
+                                +
+                            </button>
+                        </div>
 
-                        {/* MODAL */}
                         {shop && (
                             <div className="modal-overlay">
                                 <div className="modal">

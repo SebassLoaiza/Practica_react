@@ -374,3 +374,8 @@ h1 {
   background: #f44336;
   color: white;
 }
+
+.done span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
