@@ -5,9 +5,48 @@ import { useState } from "react";
 
 function Body() {
 
-    const [contador, setContador] = useState(0)
-
-    const [shop, setShop] = useState(false);
+    const [products, setProducts] = useState([
+        {
+            id: 1,
+            name: "Pechuga de pollo",
+            description: "Fresca, lista para cocinar",
+            price: "$12.000",
+            badge: "Destacado",
+            category: "Pollo y huevos",
+            count: 0,
+            shop: false
+        },
+        {
+            id: 2,
+            name: "Huevos AA",
+            description: "Cubeta x30 unidades",
+            price: "$18.000",
+            badge: "Orgánico",
+            category: "Pollo y huevos",
+            count: 0,
+            shop: false
+        },
+        {
+            id: 3,
+            name: "Tilapia fresca",
+            description: "Directo del mar",
+            price: "$15.000",
+            badge: "Nuevo",
+            category: "Pescado",
+            count: 0,
+            shop: false
+        },
+        {
+            id: 4,
+            name: "Queso campesino",
+            description: "100% natural",
+            price: "$9.000",
+            badge: "Oferta",
+            category: "Lácteos",
+            count: 0,
+            shop: false
+        }
+    ]);
 
     const [input, setInput] = useState('');
 
@@ -20,10 +59,6 @@ function Body() {
             top: document.body.scrollHeight,
             behavior: "smooth",
         });
-    };
-
-    function comprobar() {
-        setShop(true);
     };
 
     const add = () => {
@@ -40,17 +75,52 @@ function Body() {
         setInput("");
     };
 
-    function confirmar() {
-        alert("Compra realizada");
-        setShop(false);
+    function abrirModal(id) {
+        setProducts(products.map(product =>
+            product.id === id
+                ? { ...product, shop: true }
+                : product
+        ));
     }
 
-    function cancelar() {
-        setShop(false);
-    };
+    function cerrarModal(id) {
+        setProducts(products.map(product =>
+            product.id === id
+                ? { ...product, shop: false }
+                : product
+        ));
+    }
 
-    function agregar() {
-        setContador(contador + 1)
+    function confirmarCompra(id) {
+
+        const producto = products.find(p => p.id === id);
+
+        alert(`Compra realizada: ${producto.name}`);
+
+        cerrarModal(id);
+    }
+
+    function agregar(id) {
+
+        setProducts(products.map(product =>
+            product.id === id
+                ? { ...product, count: product.count + 1 }
+                : product
+        ));
+    }
+
+    function quitar(id) {
+
+        setProducts(products.map(product =>
+            product.id === id
+                ? {
+                    ...product,
+                    count: product.count > 0
+                        ? product.count - 1
+                        : 0
+                }
+                : product
+        ));
     }
 
     function quitar() {
@@ -211,82 +281,292 @@ function Body() {
                 <h2>Pollo y huevos</h2>
 
                 <div className="grid">
-                    <div className="card">
-                        <span className="badge">Destacado</span>
-                        <img src="https://via.placeholder.com/200" alt="" />
-                        <h3>Pechuga de pollo</h3>
-                        <p>Fresca, lista para cocinar</p>
 
-                        <div className="card-footer">
-                            <span className="price">$12.000</span>
-                            <button onClick={comprobar}>Comprar</button>
-                        </div>
-                        <h2 className="title">Contador</h2>
-                        <p className="number">{contador}</p>
-                        <div className="buttons">
-                            <button className="button" onClick={quitar}>
-                                -
-                            </button>
-                            <button className="button" onClick={agregar}>
-                                +
-                            </button>
-                        </div>
+                    {products
+                        .filter(product => product.category === "Pollo y huevos")
+                        .map(product => (
 
-                        {shop && (
-                            <div className="modal-overlay">
-                                <div className="modal">
-                                    <p>¿Seguro que desea comprar Pechuga de pollo?</p>
+                            <div className="card" key={product.id}>
 
-                                    <div className="modal-buttons">
-                                        <button onClick={confirmar}>Sí</button>
-                                        <button onClick={cancelar}>Cancelar</button>
-                                    </div>
+                                <span className="badge">
+                                    {product.badge}
+                                </span>
+
+                                <img
+                                    src="https://via.placeholder.com/200"
+                                    alt={product.name}
+                                />
+
+                                <h3>{product.name}</h3>
+
+                                <p>{product.description}</p>
+
+                                <div className="card-footer">
+
+                                    <span className="price">
+                                        {product.price}
+                                    </span>
+
+                                    <button onClick={() => abrirModal(product.id)}>
+                                        Comprar
+                                    </button>
+
                                 </div>
+
+                                <h2 className="title">Contador</h2>
+
+                                <p className="number">
+                                    {product.count}
+                                </p>
+
+                                <div className="buttons">
+
+                                    <button
+                                        className="button"
+                                        onClick={() => quitar(product.id)}
+                                    >
+                                        -
+                                    </button>
+
+                                    <button
+                                        className="button"
+                                        onClick={() => agregar(product.id)}
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
+
+                                {product.shop && (
+
+                                    <div className="modal-overlay">
+
+                                        <div className="modal">
+
+                                            <p>
+                                                ¿Seguro que desea comprar {product.name}?
+                                            </p>
+
+                                            <div className="modal-buttons">
+
+                                                <button
+                                                    onClick={() => confirmarCompra(product.id)}
+                                                >
+                                                    Sí
+                                                </button>
+
+                                                <button
+                                                    onClick={() => cerrarModal(product.id)}
+                                                >
+                                                    Cancelar
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                )}
+
                             </div>
-                        )}
-                    </div>
-                    <div className="card">
-                        <span className="badge">Orgánico</span>
-                        <img src="https://via.placeholder.com/200" alt="" />
-                        <h3>Huevos AA</h3>
-                        <p>Cubeta x30 unidades</p>
-                        <div className="card-footer">
-                            <span className="price">$18.000</span>
-                            <button>Comprar</button>
-                        </div>
-                    </div>
+
+                        ))}
+
                 </div>
             </section>
 
             <section className="category">
-                <h2>Pescado</h2>
                 <div className="grid">
-                    <div className="card">
-                        <span className="badge">Nuevo</span>
-                        <img src="https://via.placeholder.com/200" alt="" />
-                        <h3>Tilapia fresca</h3>
-                        <p>Directo del mar</p>
-                        <div className="card-footer">
-                            <span className="price">$15.000</span>
-                            <button>Comprar</button>
-                        </div>
-                    </div>
+
+                    {products
+                        .filter(product => product.category === "Pescado")
+                        .map(product => (
+
+                            <div className="card" key={product.id}>
+
+                                <span className="badge">
+                                    {product.badge}
+                                </span>
+
+                                <img
+                                    src="https://via.placeholder.com/200"
+                                    alt={product.name}
+                                />
+
+                                <h3>{product.name}</h3>
+
+                                <p>{product.description}</p>
+
+                                <div className="card-footer">
+
+                                    <span className="price">
+                                        {product.price}
+                                    </span>
+
+                                    <button onClick={() => abrirModal(product.id)}>
+                                        Comprar
+                                    </button>
+
+                                </div>
+
+                                <h2 className="title">Contador</h2>
+
+                                <p className="number">
+                                    {product.count}
+                                </p>
+
+                                <div className="buttons">
+
+                                    <button
+                                        className="button"
+                                        onClick={() => quitar(product.id)}
+                                    >
+                                        -
+                                    </button>
+
+                                    <button
+                                        className="button"
+                                        onClick={() => agregar(product.id)}
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
+
+                                {product.shop && (
+
+                                    <div className="modal-overlay">
+
+                                        <div className="modal">
+
+                                            <p>
+                                                ¿Seguro que desea comprar {product.name}?
+                                            </p>
+
+                                            <div className="modal-buttons">
+
+                                                <button
+                                                    onClick={() => confirmarCompra(product.id)}
+                                                >
+                                                    Sí
+                                                </button>
+
+                                                <button
+                                                    onClick={() => cerrarModal(product.id)}
+                                                >
+                                                    Cancelar
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                )}
+
+                            </div>
+
+                        ))}
+
                 </div>
             </section>
 
             <section className="category">
-                <h2>Lácteos</h2>
                 <div className="grid">
-                    <div className="card">
-                        <span className="badge">Oferta</span>
-                        <img src="https://via.placeholder.com/200" alt="" />
-                        <h3>Queso campesino</h3>
-                        <p>100% natural</p>
-                        <div className="card-footer">
-                            <span className="price">$9.000</span>
-                            <button>Comprar</button>
-                        </div>
-                    </div>
+
+                    {products
+                        .filter(product => product.category === "Lacteos")
+                        .map(product => (
+
+                            <div className="card" key={product.id}>
+
+                                <span className="badge">
+                                    {product.badge}
+                                </span>
+
+                                <img
+                                    src="https://via.placeholder.com/200"
+                                    alt={product.name}
+                                />
+
+                                <h3>{product.name}</h3>
+
+                                <p>{product.description}</p>
+
+                                <div className="card-footer">
+
+                                    <span className="price">
+                                        {product.price}
+                                    </span>
+
+                                    <button onClick={() => abrirModal(product.id)}>
+                                        Comprar
+                                    </button>
+
+                                </div>
+
+                                <h2 className="title">Contador</h2>
+
+                                <p className="number">
+                                    {product.count}
+                                </p>
+
+                                <div className="buttons">
+
+                                    <button
+                                        className="button"
+                                        onClick={() => quitar(product.id)}
+                                    >
+                                        -
+                                    </button>
+
+                                    <button
+                                        className="button"
+                                        onClick={() => agregar(product.id)}
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
+
+                                {product.shop && (
+
+                                    <div className="modal-overlay">
+
+                                        <div className="modal">
+
+                                            <p>
+                                                ¿Seguro que desea comprar {product.name}?
+                                            </p>
+
+                                            <div className="modal-buttons">
+
+                                                <button
+                                                    onClick={() => confirmarCompra(product.id)}
+                                                >
+                                                    Sí
+                                                </button>
+
+                                                <button
+                                                    onClick={() => cerrarModal(product.id)}
+                                                >
+                                                    Cancelar
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                )}
+
+                            </div>
+
+                        ))}
+
                 </div>
             </section>
 
